@@ -69,23 +69,37 @@ public class InterfacciaGrafica extends JFrame {
 
         setVisible(true);
 
-        ActionListener mandaMessaggio = new ActionListener() {
+        /*ActionListener mandaMessaggio = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String testoDaInviare = testoInput.getText();
                 testoInput.setText("");
 
                 clienteImpiccato.scrivi(testoDaInviare);
+
+                riceviMessaggio(testoOutput);
+            }
+        };
+
+        testoInput.addActionListener(mandaMessaggio);*/
+
+        ActionListener mandaMessaggio = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String testoDaInviare = testoInput.getText();
+                testoInput.setText("");
+
+                String testoRicevuto = clienteImpiccato.scriviELeggi(testoDaInviare);
+
+                testoOutput.setText(testoRicevuto);
             }
         };
 
         testoInput.addActionListener(mandaMessaggio);
-
-        ActionListener riceviMessaggio = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        }
     }
+
+    /*private void riceviMessaggio(JLabel testoOutput) {
+        String testoRicevuto = clienteImpiccato.leggi();
+        testoOutput.setText(testoRicevuto);
+    }*/
 }

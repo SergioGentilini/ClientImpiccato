@@ -18,7 +18,7 @@ public class ClienteImpiccato {
         }
     }
 
-    public void scrivi(String testo) {
+    /*public void scrivi(String testo) {
         try {
             PrintWriter out = new PrintWriter(socketCliente.getOutputStream(), true);
 
@@ -30,14 +30,45 @@ public class ClienteImpiccato {
     }
 
     public String leggi() {
-        String testo = "";
+        String testo = "<html>";
+
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(socketCliente.getInputStream()));
-            testo = in.readLine();
+
+            while (in.ready()) {
+                testo += in.readLine() + "<br/>";
+            }
+
+            testo += "</html>";
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return testo;
+    }*/
+
+    public String scriviELeggi(String testo) {
+        String testoRitorno = "<html>";
+
+        try {
+            PrintWriter out = new PrintWriter(socketCliente.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socketCliente.getInputStream()));
+
+            out.write(testo);
+            out.println();
+
+            while (!in.ready()) ;
+
+            while (in.ready()) {
+                testoRitorno += in.readLine() + "<br/>";
+            }
+
+            testoRitorno += "</html>";
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return testoRitorno;
     }
 }
